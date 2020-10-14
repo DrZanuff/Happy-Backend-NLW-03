@@ -1,0 +1,55 @@
+server.ts
+npm init --y                        #Inicia o Node
+npm install @types/express -D       #Biblioteca para respostas do Servidor
+npm install typescript -D           #Typescript no projeto
+
+yarn tsc --init
+tsconfig.json
+"target": "es2017"
+"strictPropertyInitialization": false
+"experimentalDecorators": true,          
+"emitDecoratorMetadata": true,   
+
+npm install ts-node-dev -D          #Suporte de Typescript para no Node
+
+package.json                        #Criar o script para rodar o servidor
+"scripts": {
+    "dev" : "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts"
+yarn dev
+
+npm install typeorm sqlite3         #Instalar banco de dados
+
+ormconfig.json
+{
+    "type" : "sqlite",
+    "database" : "./src/database/database.sqlite"
+}
+
+database/connection.ts            #Conector do banco de dados
+import { createConnection } from 'typeorm'
+createConnection();
+
+server.ts                          #Importa banco de dados
+import './database/connection';
+
+
+database/migrations/               #Cria a pasta de Migrations
+
+package.json   
+  "scripts": {
+    "typeorm" : "ts-node-dev ./node_modules/typeorm/cli.js"
+}
+
+
+ormconfig.json
+    "migrations" :[
+        "./src/database/migrations/*.ts"
+    ],
+    "entities":[
+        "./src/models/*ts"
+    ],
+    "cli":{
+        "migrationsDir" : "./src/database/migrations"
+    }
+
+yarn typeorm  migration:create -n create_orphanages   #Cria a Migration
